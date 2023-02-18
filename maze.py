@@ -1,10 +1,13 @@
 from random import choice, randint
+import pymunk.pygame_util
+from consts import *
 
 
 class Hole:
     def __init__(self, x, y):
         self.x, self.y = x, y
         self.walls = {}
+        self.color = WHITE
 
     def coord(self):
         return self.x, self.y
@@ -20,6 +23,7 @@ class Node:
             'right': True
         }
         self.visited = False
+        self.color = choice((NODE_COLOR1, NODE_COLOR2))
 
     def coord(self):
         return self.x, self.y
@@ -93,6 +97,17 @@ class Maze:
 
     def get_node(self, x, y):
         return self.field[y][x]
+
+
+class Wall:
+    def __init__(self, x, y, w, h, space):
+        body = pymunk.Body(body_type=pymunk.Body.KINEMATIC)
+        body.position = x, y
+        shape = pymunk.Poly.create_box(body, (w, h))
+        shape.elasticity = 1.
+        space.add(body, shape)
+        self.body = body
+        self.w, self.h = w, h
 
 
 if __name__ == '__main__':
