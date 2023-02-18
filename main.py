@@ -101,10 +101,10 @@ class Game:
             for i, row in enumerate(self.maze.field):
                 for j, node in enumerate(row):
                     pg.draw.rect(self.screen, node.color,
-                                 (self.draw.x0 + j * self.draw.a,
-                                  self.draw.y0 + i * self.draw.a,
-                                  self.draw.a + self.draw.w,
-                                  self.draw.a + self.draw.w))
+                                 (self.draw.x0 + j * self.draw.a + self.draw.w // 2,
+                                  self.draw.y0 + i * self.draw.a + self.draw.w // 2,
+                                  self.draw.a,
+                                  self.draw.a))
 
             for wall in self.walls:
                 self.draw_wall(wall)
